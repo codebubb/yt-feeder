@@ -1,0 +1,42 @@
+<mat-accordion>
+  <mat-expansion-panel class="bg-black text-white">
+    <mat-expansion-panel-header>
+      <mat-panel-title class="text-white">DevTo Markup</mat-panel-title>
+      <mat-panel-description></mat-panel-description>
+    </mat-expansion-panel-header>
+    <mat-action-row>
+      <button
+        mat-raised-button
+        color="primary"
+        (click)="copyToClipBoard('devto')"
+      >
+        Copy
+      </button>
+    </mat-action-row>
+    <pre class="bg-gray-900 p-4 text-white text-sm h-48 overflow-scroll"
+      >{{ markup['devto'] }}
+
+                </pre
+    >
+  </mat-expansion-panel>
+  <mat-expansion-panel class="bg-blue-700 text-white">
+    <mat-expansion-panel-header>
+      <mat-panel-title class="text-white">HashNode Markup</mat-panel-title>
+      <mat-panel-description></mat-panel-description>
+    </mat-expansion-panel-header>
+    <mat-action-row>
+      <button
+        class="text-white"
+        mat-raised-button
+        color="primary"
+        (click)="copyToClipBoard('hashnode')"
+      >
+        Copy
+      </button>
+    </mat-action-row>
+    <pre class="bg-blue-600 p-4 text-white text-sm h-48 overflow-scroll"
+      >{{ markup['hashnode'] }}
+                </pre
+    >
+  </mat-expansion-panel>
+</mat-accordion>

@@ -1,124 +1,78 @@
-<div>
+<div class="min-h-full relative">
   <header class="p-4">
     <h1 class="text-3xl font-bold">
       YT
       <span class="border-b border-dashed border-gray-700"> Feeder</span>
       &nbsp;🌯
     </h1>
+    <p class="text-lg font-bold">
+      Convert your recent YouTube uploads into a list of Markdown.
+    </p>
   </header>
 
-  <main class="mt-8">
+  <main class="mt-4 pb-8">
     <form
       autocomplete="off"
-      class="p-4 bg-gray-200"
+      class="p-4 mb-8 bg-gray-200 flex items-center"
       (submit)="handleFormSubmit()"
     >
-      <label class="font-bold mr-2" for="channelId"
-        >Enter your channel ID:</label
-      >
-      <input
-        [(ngModel)]="channelId"
-        class="border p-2"
-        id="channelId"
-        name="channelId"
-        type="text"
-      />
-      <button class="border bg-blue-700 text-white p-2" type="submit">
-        Feed Me!
-      </button>
+      <mat-form-field class="w-64" appearance="fill">
+        <mat-label>Your channel ID</mat-label>
+        <input
+          [(ngModel)]="channelId"
+          name="channelId"
+          matInput
+          placeholder="Ex. UCuvTObpdx__W966kbdIZ4_Q"
+        />
+      </mat-form-field>
+      <button id="submitBtn" mat-raised-button color="primary">Feed Me!</button>
     </form>
 
     <ng-container *ngIf="content">
       <ng-container *ngIf="channelMeta">
-        <h2 class="my-4 font-bold text-4xl text-blue-700">
-          <a [href]="channelMeta.link">{{ channelMeta.title }}</a>
+        <h2 class="my-8">
+          <a
+            class="p-4 font-bold text-4xl text-blue-700"
+            [href]="channelMeta.link"
+            >{{ channelMeta.title }}</a
+          >
         </h2>
       </ng-container>
 
-      <div class="flex gap-4">
-        <div class="w-2/3">
-          <p class="font-bold">Last 10 videos for this channel.</p>
+      <div class="p-4 grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div class="w-full col-span-2">
+          <p class="font-bold">
+            Last {{ feedLengthSelected }} videos for this channel.
+            <mat-slider
+              (change)="setFeedItemLimit($event)"
+              step="1"
+              min="1"
+              max="10"
+              tickInterval="1"
+              value="10"
+            ></mat-slider>
+          </p>
+
           <div
             class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4"
             *ngIf="channelItems"
           >
-            <a
-              target="_blank"
-              href="https://youtu.be/{{ item.guid }}"
-              *ngFor="let item of channelItems"
-              class="relative"
-            >
-              <div class="relative">
-                <img
-                  src="https://i1.ytimg.com/vi/{{ item.guid }}/mqdefault.jpg"
-                />
-                <input [id]="item.guid" type="checkbox" class="hidden" />
-                <label
-                  [for]="item.guid"
-                  class="z-10 left-2 top-2 absolute rounded-md p-px w-4 h-4 flex justify-center items-center border border-black bg-white"
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    class="text-white hidden"
-                    viewBox="0 0 20 20"
-                    fill="currentColor"
-                  >
-                    <path
-                      fill-rule="evenodd"
-                      d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                      clip-rule="evenodd"
-                    />
-                  </svg>
-                </label>
-              </div>
-              <div>
-                <h3 class="text-lg font-bold">{{ item.title }}</h3>
-                <p>{{ item.pubDate | date }}</p>
-              </div>
-            </a>
+            <yt-feeder-video-card
+              *ngFor="let item of selectedItems"
+              [feedItem]="item"
+            ></yt-feeder-video-card>
           </div>
         </div>
-        <div class="w-1/3 flex flex-col">
+        <div class="w-full flex flex-col">
           <p class="font-bold">Markup for these videos.</p>
-          <div class="bg-black text-white">
-            <div class="flex items-center justify-between p-4">
-              <span class="cursor-pointer" (click)="toggleAccordion('devto')"
-                ><strong>DevTo Markup</strong></span
-              >
-              <button
-                (click)="copyToClipBoard('devto')"
-                class="border border-white p-2"
-              >
-                Copy
-              </button>
-            </div>
-            <pre class="bg-gray-900 p-4" *ngIf="accordion['devto']">
-            {{ markup['devto'] }}
-          </pre
-            >
-          </div>
-          <div class="bg-blue-700 text-white">
-            <div class="flex items-center justify-between p-4">
-              <span class="cursor-pointer" (click)="toggleAccordion('hashnode')"
-                ><strong>HashNode Markup</strong></span
-              >
-              <button
-                (click)="copyToClipBoard('hashnode')"
-                class="border border-white p-2"
-              >
-                Copy
-              </button>
-            </div>
-            <pre class="bg-blue-600 p-4" *ngIf="accordion['hashnode']">
-            {{ markup['hashnode'] }}
-          </pre
-            >
-          </div>
+          <yt-feeder-markdown-accordion
+            [feedItems]="selectedItems"
+          ></yt-feeder-markdown-accordion>
         </div>
       </div>
     </ng-container>
   </main>
-  <footer class="fixed bottom-0 w-full">
+  <footer class="absolute bottom-0 w-full">
     <p class="text-center w-full">
       Made with ❤️ & ☕️ by
       <a class="text-blue-700" href="https://twitter.com/codebubb">@codebubb</a>

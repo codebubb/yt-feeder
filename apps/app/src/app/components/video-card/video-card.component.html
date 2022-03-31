@@ -1,0 +1,34 @@
+<ng-container *ngIf="feedItem">
+  <mat-card>
+    <img
+      class="max-w-fit"
+      mat-card-image
+      src="https://i1.ytimg.com/vi/{{ feedItem.guid }}/mqdefault.jpg"
+    />
+    <mat-card-content class="h-36">
+      <picture class="text-base font-medium">{{ feedItem.title }}</picture>
+
+      <p>{{ feedItem.pubDate | date }}</p>
+
+      <!-- <input [id]="feedItem.guid" type="checkbox" class="hidden" />
+        <label
+          [for]="feedItem.guid"
+          class="z-10 left-2 top-2 absolute rounded-md p-px w-4 h-4 flex justify-center items-center border border-black bg-white"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="text-white hidden"
+            viewBox="0 0 20 20"
+            fill="currentColor"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+              clip-rule="evenodd"
+            />
+          </svg>
+        </label>
+      </div> -->
+    </mat-card-content>
+  </mat-card>
+</ng-container>
