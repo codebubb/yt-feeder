@@ -28,6 +28,12 @@
       <button id="submitBtn" mat-raised-button color="primary">Feed Me!</button>
     </form>
 
+    <div *ngIf="errorMessage" class="p-4 text-red-600">{{ errorMessage }}</div>
+
+    <div class="flex justify-center" *ngIf="loading">
+      <mat-progress-spinner mode="indeterminate"> </mat-progress-spinner>
+    </div>
+
     <ng-container *ngIf="content">
       <ng-container *ngIf="channelMeta">
         <h2 class="my-8">
