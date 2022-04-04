@@ -1,7 +1,7 @@
 <mat-accordion>
   <mat-expansion-panel class="bg-black text-white">
     <mat-expansion-panel-header>
-      <mat-panel-title class="text-white">DevTo Markup</mat-panel-title>
+      <mat-panel-title class="text-white">DevTo Markdown</mat-panel-title>
       <mat-panel-description></mat-panel-description>
     </mat-expansion-panel-header>
     <mat-action-row>
@@ -21,7 +21,7 @@
   </mat-expansion-panel>
   <mat-expansion-panel class="bg-blue-700 text-white">
     <mat-expansion-panel-header>
-      <mat-panel-title class="text-white">HashNode Markup</mat-panel-title>
+      <mat-panel-title class="text-white">HashNode Markdown</mat-panel-title>
       <mat-panel-description></mat-panel-description>
     </mat-expansion-panel-header>
     <mat-action-row>
@@ -36,6 +36,47 @@
     </mat-action-row>
     <pre class="bg-blue-600 p-4 text-white text-sm h-48 overflow-scroll"
       >{{ markup['hashnode'] }}
+                </pre
+    >
+  </mat-expansion-panel>
+
+  <mat-expansion-panel class="bg-green-700 text-white">
+    <mat-expansion-panel-header>
+      <mat-panel-title class="text-white">Standard Markdown</mat-panel-title>
+      <mat-panel-description></mat-panel-description>
+    </mat-expansion-panel-header>
+    <mat-action-row>
+      <button
+        class="text-white"
+        mat-raised-button
+        color="primary"
+        (click)="copyToClipBoard('markdown')"
+      >
+        Copy
+      </button>
+    </mat-action-row>
+    <pre class="bg-green-600 p-4 text-white text-sm h-48 overflow-scroll"
+      >{{ markup['markdown'] }}
+                </pre
+    >
+  </mat-expansion-panel>
+  <mat-expansion-panel class="bg-orange-700 text-white">
+    <mat-expansion-panel-header>
+      <mat-panel-title class="text-white">HTML Markup</mat-panel-title>
+      <mat-panel-description></mat-panel-description>
+    </mat-expansion-panel-header>
+    <mat-action-row>
+      <button
+        class="text-white"
+        mat-raised-button
+        color="primary"
+        (click)="copyToClipBoard('markup')"
+      >
+        Copy
+      </button>
+    </mat-action-row>
+    <pre class="bg-orange-600 p-4 text-white text-sm h-48 overflow-scroll"
+      >{{ markup['markup'] }}
                 </pre
     >
   </mat-expansion-panel>
